@@ -1,0 +1,74 @@
+:root {
+	--questsColor: #3d4146;
+	--questColor: rgb(120, 120, 120);
+	--addColor: #50b5e9;
+	--moreColor: #e7e950;
+	--infoRadius: 1rem;
+}
+.questsList {
+	border: 0.5rem solid var(--questsColor);
+	background-color: var(--questsColor);
+	border-radius: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	width: 90%;
+	margin: 1rem;
+}
+.row {
+	flex-direction: row;
+	height: 1.5rem;
+}
+.fill-width {
+	width: 100%;
+}
+
+.questInfo {
+	border: 0.1rem solid var(--questColor);
+	background-color: var(--questColor);
+	margin: 0.2rem;
+	border-radius: var(--infoRadius);
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+.no-margin {
+	margin: 0;
+}
+.add {
+	background-color: var(--addColor);
+	width: 3rem;
+	border-radius: var(--infoRadius) 0rem 0rem var(--infoRadius);
+	display: flex;
+	flex-direction: row;
+}
+.info {
+	padding: 0.5rem;
+	display: flex;
+	flex-direction: column;
+}
+.align-left {
+	align-self: flex-start;
+}
+
+.align-right {
+	align-self: flex-end;
+}
+
+.title {
+	font-weight: 600;
+	font-size: 1rem;
+	line-height: 1.71;
+}
+.description {
+	font-size: 0.875rem;
+}
+.more {
+	background-color: var(--moreColor);
+	width: 3rem;
+	padding: 0rem;
+	margin: 0rem;
+	border-radius: 0rem var(--infoRadius) var(--infoRadius) 0rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}

@@ -1,0 +1,43 @@
+.mainGrid {
+	display: flex;
+	padding: 0;
+}
+.column1 {
+}
+.column2 {
+}
+.headRow {
+	text-align: start;
+}
+.statsRow {
+}
+.levelRow {
+	display: flex;
+}
+.experienceRow {
+	display: flex;
+}
+.coinsRow {
+	display: flex;
+}
+.playerName {
+	font-weight: 700;
+	font-size: 1.875rem;
+	line-height: 1.71;
+}
+.levelInfo {
+	font-size: 0.875rem;
+	margin-top: -2rem;
+}
+.content {
+	font-size: 1rem;
+	justify-self: center;
+	align-self: center;
+	margin: 0;
+	padding: 0;
+}
+.emoji {
+	font: 1em sans-serif;
+	padding: 0.1em;
+	padding-right: 0.5em;
+}

@@ -1,25 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
-
+import PlayerStats from './PlayerStats';
+import Quests from './Quests';
+import Api from './Api.js';
+const api = Api.get();
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<div className="App">
+			<header className="App-header">
+				<PlayerStats player={api.player}></PlayerStats>
+				<div className="boards-grid">
+					<Quests quests={api.getQuests()}></Quests>
+					<Quests quests={api.getQuests()}></Quests>
+				</div>
+			</header>
+		</div>
+	);
 }
 
 export default App;
