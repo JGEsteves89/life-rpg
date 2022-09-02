@@ -1,9 +1,8 @@
 import Player from './Player';
 import Store from './Store';
 import QuestBoard from './QuestBoard';
-import FileDBHandle from './FileDBHandle';
-import Quest from './Quest';
 import Selable from './Selable';
+import Quest from './Quest';
 
 export default class Game {
 	constructor() {
@@ -11,52 +10,58 @@ export default class Game {
 		this.store = new Store();
 		this.questBoard = new QuestBoard();
 	}
-	load() {
-		this.player = FileDBHandle.load('player', new Player());
-		this.store = FileDBHandle.load('store', new Store());
-		this.questBoard = FileDBHandle.load('questBoard', new QuestBoard());
+	async load() {
+		return fetch('https://life-rpg.ijimiguel.workers.dev/')
+			.then((response) => response.json())
+			.then((data) => {
+				//console.log('Game Quests', data.quests.length);
+				this.player.cloneFrom(data.player);
+				this.store.cloneFrom(data);
+				this.questBoard.cloneFrom(data);
+			});
 	}
-	save() {
-		FileDBHandle.save('player', this.player);
-		FileDBHandle.save('store', this.store);
-		FileDBHandle.save('questBoard', this.questBoard);
+	async save() {
+		return fetch('https://life-rpg.ijimiguel.workers.dev/', {
+			method: 'POST',
+			body: JSON.stringify({
+				player: this.player,
+				items: this.store.items,
+				quests: this.questBoard.quests,
+			}),
+		});
 	}
 
 	getQuests() {
 		return this.questBoard.quests;
 	}
 
-	// addQuest(name: string, description: string, prize: number, xp: number) {
-	//     this.questBoard.quests.push(new Quest(name, description, prize));
-	// }
+	getQuest(questNumber) {
+		return this.questBoard.quests[questNumber];
+	}
 
-	// doQuest(questNumber: number) {
-	//     const quest = this.questBoard.quests[questNumber];
-	//     this.questBoard.doQuest(quest, this.player);
-	// }
+	addQuest(name, description, prize, repeatable) {
+		this.questBoard.quests.push(
+			new Quest(name, description, prize, repeatable)
+		);
+	}
 
-	// listSellingItems() {
-	//     console.log('Selling Items');
-	//     const table = [];
-	//     for (var i = 0; i < this.store.items.length; i++) {
-	//         const item = this.store.items[i];
-	//         table.push({ Prize: item.price, Name: item.name, Description: item.description ? item.description : '' })
-	//     }
-	//     console.table(table);
-	// }
+	doQuest(quest) {
+		return this.questBoard.doQuest(quest, this.player);
+	}
 
-	// addItemToSell(name: string, description: string, price: number) {
-	//     this.store.items.push(new Selable(name, description, price));
-	// }
+	getItems() {
+		return this.store.items;
+	}
 
-	// playerStats() {
-	//     console.log("Coins:", "\t", "💶 " + this.player.coins);
-	//     console.log("Level:", "\t", "📈 " + this.player.level);
-	//     console.log("Xp:", "\t", "🔧 " + this.player.xp);
-	//     console.log("Last Transctions:");
-	//     for (var i = 0; i < this.player.ledger.transactions.length; i++) {
-	//         const transaction = this.player.ledger.transactions[i];
-	//         console.log(transaction.date, "-", "💶 " + transaction.value, "\t", transaction.item.name,)
-	//     }
-	// }
+	getItem(itemNumber) {
+		return this.store.items[itemNumber];
+	}
+
+	addItem(name, description, price) {
+		this.store.items.push(new Selable(name, description, price));
+	}
+
+	sellItem(item) {
+		return this.store.sellItem(item, this.player);
+	}
 }

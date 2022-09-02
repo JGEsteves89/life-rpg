@@ -5,6 +5,9 @@
 	--moreColor: #e7e950;
 	--infoRadius: 1rem;
 }
+.clicable {
+	cursor: pointer;
+}
 .questsList {
 	border: 0.5rem solid var(--questsColor);
 	background-color: var(--questsColor);
@@ -17,15 +20,32 @@
 .row {
 	flex-direction: row;
 	height: 1.5rem;
+	margin: 0rem;
+}
+p {
+	margin: 0rem;
+	margin-block: 0rem;
+}
+.flex {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.column {
+	flex-direction: column;
+	height: 100%;
 }
 .fill-width {
 	width: 100%;
+}
+.fill-height {
+	height: 100%;
 }
 
 .questInfo {
 	border: 0.1rem solid var(--questColor);
 	background-color: var(--questColor);
-	margin: 0.2rem;
+	margin-bottom: 0.5rem;
 	border-radius: var(--infoRadius);
 	display: flex;
 	flex-direction: row;
@@ -43,11 +63,18 @@
 }
 .info {
 	padding: 0.5rem;
+	margin-right: 0.2rem;
 	display: flex;
 	flex-direction: column;
 }
 .align-left {
 	align-self: flex-start;
+}
+.align-center {
+	justify-self: center;
+}
+.justify-center {
+	justify-content: center;
 }
 
 .align-right {
@@ -62,13 +89,8 @@
 .description {
 	font-size: 0.875rem;
 }
-.more {
-	background-color: var(--moreColor);
-	width: 3rem;
+
+.emoji {
+	font: 1em sans-serif;
 	padding: 0rem;
-	margin: 0rem;
-	border-radius: 0rem var(--infoRadius) var(--infoRadius) 0rem;
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
 }
