@@ -1,15 +1,14 @@
 import Selable from './Selable';
-import Clonable from './Clonable';
+import DatabasableList from './DatabasableList';
 
-export default class Store extends Clonable {
+export default class Store extends DatabasableList {
 	constructor() {
-		super();
-		this.items = [];
+		super('Store');
 	}
 
-	sellItem(item, player) {
-		const itemExists = this.items.filter((i) => i === item).length > 0;
-		if (!itemExists) {
+	sellItem(id, player) {
+		const item = this.get(id);
+		if (!item) {
 			console.warn('The item you are trying to buy does not exist');
 			return false;
 		}
@@ -24,7 +23,9 @@ export default class Store extends Clonable {
 	cloneFrom(data) {
 		this.items = [];
 		for (const item of data.items) {
-			this.items.push(new Selable(item.name, item.description, item.price));
+			this.items.push(
+				new Selable(item.name, item.description, item.price, item.id)
+			);
 		}
 	}
 }

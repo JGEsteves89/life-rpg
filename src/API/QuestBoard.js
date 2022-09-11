@@ -1,14 +1,32 @@
 import Quest from './Quest';
-import Clonable from './Clonable';
+import DatabasableList from './DatabasableList';
 
-export default class QuestBoard extends Clonable {
+export default class QuestBoard extends DatabasableList {
 	constructor() {
-		super();
-		this.quests = [];
+		super('Quest Board');
 	}
-	doQuest(quest, player) {
-		const questExists = this.quests.filter((q) => q === quest).length > 0;
-		if (!questExists) {
+
+	cloneFrom(data) {
+		this.items = [];
+		if (data.quests) {
+			for (const quest of data.quests) {
+				this.items.push(
+					new Quest(
+						quest.name,
+						quest.description,
+						quest.prize,
+						quest.repeatable,
+						quest.done,
+						quest.id
+					)
+				);
+			}
+		}
+	}
+
+	doQuest(id, player) {
+		const quest = this.get(id);
+		if (!quest) {
 			console.warn('The quest you are trying to do does not exist');
 			return false;
 		}
@@ -18,13 +36,5 @@ export default class QuestBoard extends Clonable {
 		}
 		player.preformQuest(quest);
 		return true;
-	}
-	cloneFrom(data) {
-		this.quests = [];
-		for (const quest of data.quests) {
-			this.quests.push(
-				new Quest(quest.name, quest.description, quest.prize, quest.repeatable)
-			);
-		}
 	}
 }

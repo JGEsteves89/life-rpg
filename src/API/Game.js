@@ -6,62 +6,91 @@ import Quest from './Quest';
 
 export default class Game {
 	constructor() {
-		this.player = new Player();
-		this.store = new Store();
-		this.questBoard = new QuestBoard();
+		this._player = new Player();
+		this._store = new Store();
+		this._questBoard = new QuestBoard();
 	}
+
+	loadData(data) {
+		this._player.cloneFrom(data.player);
+		this._store.cloneFrom(data);
+		this._questBoard.cloneFrom(data);
+	}
+
+	getData() {
+		return {
+			player: this._player,
+			items: this._store.items,
+			quests: this._questBoard.items,
+		};
+	}
+
 	async load() {
 		return fetch('https://life-rpg.ijimiguel.workers.dev/')
 			.then((response) => response.json())
 			.then((data) => {
-				//console.log('Game Quests', data.quests.length);
-				this.player.cloneFrom(data.player);
-				this.store.cloneFrom(data);
-				this.questBoard.cloneFrom(data);
+				this.loadData(data);
 			});
 	}
 	async save() {
 		return fetch('https://life-rpg.ijimiguel.workers.dev/', {
 			method: 'POST',
-			body: JSON.stringify({
-				player: this.player,
-				items: this.store.items,
-				quests: this.questBoard.quests,
-			}),
+			body: JSON.stringify(this.getData()),
 		});
 	}
 
+	getPlayer() {
+		return this._player;
+	}
+
 	getQuests() {
-		return this.questBoard.quests;
+		return this._questBoard.items;
 	}
 
-	getQuest(questNumber) {
-		return this.questBoard.quests[questNumber];
+	getQuest(id) {
+		return this._questBoard.get(id);
 	}
 
-	addQuest(name, description, prize, repeatable) {
-		this.questBoard.quests.push(
-			new Quest(name, description, prize, repeatable)
+	addQuest(name, description, prize, repeatable, done = false) {
+		this._questBoard.add(new Quest(name, description, prize, repeatable, done));
+	}
+
+	updateQuest(id, name, description, prize, repeatable) {
+		this._questBoard.update(
+			id,
+			new Quest(name, description, prize, repeatable, id)
 		);
 	}
 
-	doQuest(quest) {
-		return this.questBoard.doQuest(quest, this.player);
+	deleteQuest(id) {
+		this._questBoard.delete(id);
+	}
+
+	doQuest(id) {
+		return this._questBoard.doQuest(id, this._player);
 	}
 
 	getItems() {
-		return this.store.items;
+		return this._store.items;
 	}
 
-	getItem(itemNumber) {
-		return this.store.items[itemNumber];
+	getItem(id) {
+		return this._store.get(id);
 	}
 
 	addItem(name, description, price) {
-		this.store.items.push(new Selable(name, description, price));
+		this._store.add(new Selable(name, description, price));
 	}
 
-	sellItem(item) {
-		return this.store.sellItem(item, this.player);
+	updateItem(id, name, description, price) {
+		this._store.update(id, new Selable(name, description, price, id));
+	}
+
+	deleteItem(id) {
+		this._store.delete(id);
+	}
+
+	sellItem(id) {
+		return this._store.sellItem(id, this._player);
 	}
 }

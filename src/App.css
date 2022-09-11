@@ -1,43 +1,54 @@
-.App {
-	text-align: center;
+:root {
+	--bg-primary: #2a2b3d;
+	--bg-secondary: #222433;
+	--cl-secondary: #979eae;
+	--cl-primary: #ffffff;
+	--cl-selection: #4c84ff;
+}
+.bg-primary {
+	background-color: var(--bg-primary);
+}
+.bg-secondary {
+	background-color: var(--bg-secondary);
+}
+.cl-primary {
+	color: var(--cl-primary);
+}
+.cl-secondary {
+	color: var(--cl-secondary);
+}
+.cl-selection {
+	color: var(--cl-selection);
 }
 
-.App-logo {
-	height: 40vmin;
-	pointer-events: none;
+* {
+	color: var(--cl-secondary);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-	.App-logo {
-		animation: App-logo-spin infinite 20s linear;
-	}
+html,
+body {
+	background-color: var(--bg-secondary);
+	color: var(--cl-primary);
+}
+p {
+	margin: 0;
 }
 
-.App-header {
-	background-color: #282c34;
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	font-size: calc(10px + 2vmin);
-	color: white;
+.page-button {
+	color: var(--cl-secondary);
 }
 
-.App-link {
-	color: #61dafb;
+h3 {
+	padding-inline: 1rem;
 }
-
-@keyframes App-logo-spin {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
+div[role='dialog'] {
+	color: var(--cl-primary);
+	background-color: var(--bg-secondary);
 }
-.boards-grid {
-	flex-direction: row;
-	display: flex;
-	width: 90%;
+input {
+	color: var(--cl-primary) !important;
+}
+.MuiFormControl-root,
+.MuiFormLabel-root {
+	color: var(--cl-primary) !important;
 }

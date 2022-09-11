@@ -2,24 +2,39 @@ import Clonable from './Clonable';
 import Ledger from './Ledger';
 import Transaction from './Transaction';
 
+const fa = 0.922;
+const fi = 0.248;
 export default class Player extends Clonable {
 	constructor() {
 		super();
-		this.xp = 10;
+		this.xp = 0;
 		this.coins = 0;
 		this.ledger = new Ledger();
 		this.nextLevelXp = 0;
 	}
 	get level() {
-		const lvl = Player.getLevelOfXp(this.xp);
-		this.nextLevelXp = Player.getXpOfLevel(lvl + 1);
+		const lvl = this.getLevelOfXp(this.xp);
+		this.nextLevelXp = this.getXpOfLevel(lvl + 1);
 		return lvl;
 	}
-	static getLevelOfXp(xp) {
-		return Math.round(-10.5 + 5 * Math.log(xp));
+	getLevelOfXp(xp) {
+		let level = Math.log(xp / fa) / fi;
+		if (level < 0) {
+			level = 0;
+		}
+		return level;
 	}
-	static getXpOfLevel(level) {
-		return Math.round(Math.exp((level + 10.5) / 5));
+	getXpOfLevel(level) {
+		if (level === 0) {
+			return 0;
+		}
+		return fa * Math.exp(fi * level);
+	}
+	percentageToNextLevel() {
+		const startXpLevel = this.getXpOfLevel(this.level | 0);
+		const nextXpLevel = this.getXpOfLevel(this.level | (0 + 1));
+
+		return (this.xp - startXpLevel) / (nextXpLevel - startXpLevel);
 	}
 	preformQuest(quest) {
 		this.xp += quest.prize;
@@ -37,7 +52,7 @@ export default class Player extends Clonable {
 		this.ledger = new Ledger();
 		for (const transaction of data.ledger.transactions) {
 			this.ledger.transactions.push(
-				new Transaction(transaction.name, transaction.value, transaction.data)
+				new Transaction(transaction.item, transaction.value, transaction.date)
 			);
 		}
 	}

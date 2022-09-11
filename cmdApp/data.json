@@ -1,0 +1,131 @@
+{
+    "player": {
+        "xp": 50,
+        "coins": 45,
+        "ledger": {
+            "transactions": [
+                {
+                    "item": {
+                        "id": 0,
+                        "name": "Create the main view page",
+                        "description": "Of Life-rpg",
+                        "prize": 10,
+                        "done": true,
+                        "repeatable": false
+                    },
+                    "value": 10,
+                    "date": "2022-09-07T22:18:01.279Z"
+                },
+                {
+                    "item": {
+                        "id": 0,
+                        "name": "Create the main view page",
+                        "description": "Of Life-rpg",
+                        "prize": 10,
+                        "done": true,
+                        "repeatable": false
+                    },
+                    "value": 10,
+                    "date": "2022-09-07T22:18:49.253Z"
+                },
+                {
+                    "item": {
+                        "id": 0,
+                        "name": "Snu snu",
+                        "description": "From the best girl in the world",
+                        "price": 5
+                    },
+                    "value": -5,
+                    "date": "2022-09-07T22:19:51.217Z"
+                },
+                {
+                    "item": {
+                        "id": 0,
+                        "name": "Create the main view page",
+                        "description": "Of Life-rpg",
+                        "prize": 10,
+                        "done": true,
+                        "repeatable": false
+                    },
+                    "value": 10,
+                    "date": "2022-09-07T22:21:46.091Z"
+                },
+                {
+                    "item": {
+                        "id": 0,
+                        "name": "Create the main view page",
+                        "description": "Of Life-rpg",
+                        "prize": 10,
+                        "done": true,
+                        "repeatable": false
+                    },
+                    "value": 10,
+                    "date": "2022-09-07T22:21:53.296Z"
+                },
+                {
+                    "item": {
+                        "id": 0,
+                        "name": "Create the main view page",
+                        "description": "Of Life-rpg",
+                        "prize": 10,
+                        "done": true,
+                        "repeatable": false
+                    },
+                    "value": 10,
+                    "date": "2022-09-07T22:25:39.049Z"
+                }
+            ]
+        },
+        "nextLevelXp": 0
+    },
+    "items": [
+        {
+            "id": 0,
+            "name": "Snu snu",
+            "description": "From the best girl in the world",
+            "price": 5
+        }
+    ],
+    "quests": [
+        {
+            "id": 0,
+            "name": "Create the main view page",
+            "description": "Of Life-rpg",
+            "prize": 10,
+            "done": true,
+            "repeatable": false
+        },
+        {
+            "id": 1,
+            "name": "Do Quests",
+            "description": "Link the button to do a quest",
+            "prize": "2",
+            "done": 1,
+            "repeatable": false
+        },
+        {
+            "id": 2,
+            "name": "Add option to delete the quest",
+            "description": "Quests must be deletable",
+            "prize": "2",
+            "done": false,
+            "repeatable": false
+        },
+        {
+            "id": 3,
+            "name": "Check the bug of same ID",
+            "description": "This happens maybe when I create a new quest",
+            "prize": "3",
+            "done": false,
+            "repeatable": false
+        },
+        {
+            "id": 4,
+            "name": "Handle repeatable quests",
+            "description": "Check if everything is working fine and make sure that ui shows it",
+            "prize": "3",
+            "done": false,
+            "repeatable": false
+        }
+    ]
+}

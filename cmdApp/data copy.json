@@ -1,0 +1,197 @@
+{
+    "player": {
+        "xp": 10,
+        "coins": 10,
+        "ledger": {
+            "transactions": [
+                {
+                    "item": {
+                        "name": "Mima o teu amor",
+                        "description": "Value must be propotional",
+                        "prize": 2,
+                        "done": false,
+                        "repeatable": true
+                    },
+                    "value": 2,
+                    "date": "2022-09-04T14:00:52.391Z"
+                },
+                {
+                    "item": {
+                        "name": "Working on a project for an hour",
+                        "description": "",
+                        "prize": 3,
+                        "done": false,
+                        "repeatable": true
+                    },
+                    "value": 3,
+                    "date": "2022-09-04T14:00:57.331Z"
+                },
+                {
+                    "item": {
+                        "name": "Clean something",
+                        "description": "",
+                        "prize": 2,
+                        "done": false,
+                        "repeatable": true
+                    },
+                    "value": 2,
+                    "date": "2022-09-04T14:01:57.856Z"
+                },
+                {
+                    "item": {
+                        "name": "Learn something new for an hour",
+                        "description": "",
+                        "prize": 3,
+                        "done": false,
+                        "repeatable": true
+                    },
+                    "value": 3,
+                    "date": "2022-09-04T14:02:11.401Z"
+                }
+            ]
+        },
+        "nextLevelXp": 12.814599321940207
+    },
+    "items": [
+        {
+            "name": "Smoke a cigarette",
+            "description": "Nasty nasty",
+            "price": 3
+        },
+        {
+            "name": "Beer",
+            "description": "Well deserved",
+            "price": 3
+        },
+        {
+            "name": "2nd Breakfast?",
+            "description": "Something small ok?",
+            "price": 5
+        },
+        {
+            "name": "Repeat meal",
+            "description": "Do it again",
+            "price": 5
+        },
+        {
+            "name": "Buy computer",
+            "description": "That is the dream",
+            "price": 200
+        },
+        {
+            "name": "Play games",
+            "description": "Small game, just for an hour or so",
+            "price": 5
+        },
+        {
+            "name": "9gag",
+            "description": "Spend deserved time on it",
+            "price": 3
+        },
+        {
+            "name": "Sugar Eat",
+            "description": "Eat something with sugar on it",
+            "price": 3
+        }
+    ],
+    "quests": [
+        {
+            "name": "Brush teeth",
+            "description": "Just brush your teeth",
+            "prize": 1,
+            "done": false,
+            "repeatable": true
+        },
+        {
+            "name": "Finish project",
+            "description": "The conclusion of a project",
+            "prize": 20,
+            "done": false,
+            "repeatable": true
+        },
+        {
+            "name": "Clean car",
+            "description": "",
+            "prize": 5,
+            "done": false,
+            "repeatable": true
+        },
+        {
+            "name": "Buy tickets to England",
+            "description": "",
+            "prize": 3,
+            "done": false,
+            "repeatable": false
+        },
+        {
+            "name": "Wood for fire place",
+            "description": "",
+            "prize": 3,
+            "done": false,
+            "repeatable": false
+        },
+        {
+            "name": "Call electricist",
+            "description": "",
+            "prize": 3,
+            "done": false,
+            "repeatable": false
+        },
+        {
+            "name": "Run",
+            "description": "",
+            "prize": 5,
+            "done": false,
+            "repeatable": true
+        },
+        {
+            "name": "Train Ringo",
+            "description": "",
+            "prize": 2,
+            "done": false,
+            "repeatable": true
+        },
+        {
+            "name": "Walk Ringo",
+            "description": "",
+            "prize": 2,
+            "done": false,
+            "repeatable": true
+        },
+        {
+            "name": "Big Walk Ringo",
+            "description": "",
+            "prize": 5,
+            "done": false,
+            "repeatable": true
+        },
+        {
+            "name": "Clean something",
+            "description": "",
+            "prize": 2,
+            "done": false,
+            "repeatable": true
+        },
+        {
+            "name": "Mima o teu amor",
+            "description": "Value must be propotional",
+            "prize": 2,
+            "done": false,
+            "repeatable": true
+        },
+        {
+            "name": "Learn something new for an hour",
+            "description": "",
+            "prize": 3,
+            "done": false,
+            "repeatable": true
+        },
+        {
+            "name": "Working on a project for an hour",
+            "description": "",
+            "prize": 3,
+            "done": false,
+            "repeatable": true
+        }
+    ]
+}

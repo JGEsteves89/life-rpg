@@ -1,0 +1,18 @@
+{
+	"name": "cmdapp",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "node -r esm index.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"axios": "^0.27.2",
+		"esm": "^3.2.25",
+		"readline-sync": "^1.4.10"
+	}
+}
