@@ -76,3 +76,11 @@ ul {
 	margin: 0;
 	padding: 0;
 }
+.nav-link {
+	text-decoration: none;
+	margin-inline: 0.7rem;
+	color: var(--cl-primary);
+}
+.unselected {
+	color: var(--cl-secondary) !important;
+}
