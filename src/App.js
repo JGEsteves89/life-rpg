@@ -16,31 +16,18 @@ import Player from './Player.js';
 import QuestBoard from './QuestBoard.js';
 import NavBar from './NavBar.js';
 
-const Pages = {
-	Player: 'Player',
-	Quests: 'Quests',
-	Store: 'Store',
-};
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			api: null,
 		};
-		this.page = Pages.Player;
 	}
-	navBar() {}
+
 	componentDidMount() {
 		Api.get().then((api) => {
 			this.setState({ api: api });
 		});
-	}
-
-	isSelectedClass(page) {
-		if (this.state.selectedPage === page) {
-			return 'var(--cl-primary)';
-		}
-		return 'var(--cl-secundary)';
 	}
 
 	handleUpdate = () => {
@@ -99,9 +86,8 @@ export default class App extends React.Component {
 									api={this.state.api}
 									appUpdate={this.handleUpdate}
 									quests={this.state.api.getQuests()}
-									key={this.state.api._questBoard.items}>
-									{(this.page = Pages.Player)}
-								</QuestBoard>
+									key={this.state.api._questBoard.items}
+								/>
 							}
 						/>
 						<Route path="/store" element={<>Hello Darkness my old friend</>} />
