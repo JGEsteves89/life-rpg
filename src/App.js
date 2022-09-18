@@ -2,7 +2,6 @@ import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import VideogameAssetTwoToneIcon from '@mui/icons-material/VideogameAssetTwoTone';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 
@@ -41,9 +40,9 @@ export default class App extends React.Component {
 
 	handleUpdate = () => {
 		this.setState({ api: this.state.api });
-		this.state.api.save().then(() => {
-			console.log('Data saved successfully');
-		});
+		// this.state.api.save().then(() => {
+		// 	console.log('Data saved successfully');
+		// });
 		console.log('Data updated');
 	};
 
@@ -79,9 +78,9 @@ export default class App extends React.Component {
 					<Toolbar
 						className="bg-primary"
 						sx={{ justifyContent: 'space-between' }}>
-						<VideogameAssetTwoToneIcon
-							className="cl-selection"
-							fontSize="large"
+						<Avatar
+							alt="Icons"
+							src={process.env.PUBLIC_URL + '/icons8-shield-arcade-96.png'}
 						/>
 						<Box>
 							<Button
@@ -109,7 +108,7 @@ export default class App extends React.Component {
 								fontSize: '0.7rem',
 							}}>
 							<Box>
-								<p>Level {player.level.toFixed(0)}</p>
+								<p>Level {Math.floor(player.level)}</p>
 								<p>Coins {player.coins.toFixed(0)}</p>
 							</Box>
 							<Avatar

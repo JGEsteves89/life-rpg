@@ -14,7 +14,7 @@ export default class Player extends Clonable {
 	}
 	get level() {
 		const lvl = this.getLevelOfXp(this.xp);
-		this.nextLevelXp = this.getXpOfLevel(lvl + 1);
+		this.nextLevelXp = this.getXpOfLevel(1 + Math.floor(lvl));
 		return lvl;
 	}
 	getLevelOfXp(xp) {
@@ -31,8 +31,8 @@ export default class Player extends Clonable {
 		return fa * Math.exp(fi * level);
 	}
 	percentageToNextLevel() {
-		const startXpLevel = this.getXpOfLevel(this.level | 0);
-		const nextXpLevel = this.getXpOfLevel(this.level | (0 + 1));
+		const startXpLevel = this.getXpOfLevel(Math.floor(this.level));
+		const nextXpLevel = this.getXpOfLevel(1 + Math.floor(this.level));
 
 		return (this.xp - startXpLevel) / (nextXpLevel - startXpLevel);
 	}

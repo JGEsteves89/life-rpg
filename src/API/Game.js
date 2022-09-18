@@ -55,10 +55,10 @@ export default class Game {
 		this._questBoard.add(new Quest(name, description, prize, repeatable, done));
 	}
 
-	updateQuest(id, name, description, prize, repeatable) {
+	updateQuest(id, name, description, prize, repeatable, done = false) {
 		this._questBoard.update(
 			id,
-			new Quest(name, description, prize, repeatable, id)
+			new Quest(name, description, prize, repeatable, done, id)
 		);
 	}
 

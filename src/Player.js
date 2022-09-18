@@ -54,12 +54,12 @@ export default class Player extends React.Component {
 					<CardContent>
 						<Box sx={levelRowStyle}>
 							<Typography variant="h3" sx={levelStyle}>
-								{this.state.player.level.toFixed(0)}
+								{Math.floor(this.state.player.level)}
 							</Typography>
 							<Box sx={levelBoxRowStyle}>
 								<Typography variant="subtitle1">Level</Typography>
 								<Typography variant="subtitle1">
-									{this.state.player.nextLevelXp.toFixed(0) + 'xp'}
+									{Math.ceil(this.state.player.nextLevelXp) + 'xp'}
 								</Typography>
 							</Box>
 							<Box sx={style().row(2).col(2).bgSec.bradius('1rem')}>
@@ -86,38 +86,40 @@ export default class Player extends React.Component {
 						</Box>
 						<Divider sx={style().m1} />
 						<List sx={style().bgPrim}>
-							{this.state.player.ledger.transactions.map((transaction) => {
-								return (
-									<ListItem
-										sx={style().shadow1.bgSec}
-										key={transaction.date}
-										secondaryAction={
-											<IconButton aria-label="delete" sx={style().mi(-1)}>
-												<DeleteOutlineOutlinedIcon />
-											</IconButton>
-										}>
-										<ListItemIcon>
-											{transaction.value > 0 && <TaskAltOutlinedIcon />}
-											{transaction.value < 0 && <SellOutlinedIcon />}
-										</ListItemIcon>
-										<ListItemText
-											sx={style().clSec}
-											secondaryTypographyProps={style().clPrim}
-											primary={transaction.item.name}
-											secondary={new Date(transaction.date).toLocaleString()}
-										/>
-										<Typography
-											sx={
-												transaction.value > 0
-													? style().cl('darkgreen')
-													: style().cl('red')
-											}
-											variant="subtitle1">
-											{transaction.value}
-										</Typography>
-									</ListItem>
-								);
-							})}
+							{this.state.player.ledger.transactions.map(
+								(transaction, index) => {
+									return (
+										<ListItem
+											sx={style().shadow1.bgSec}
+											key={index}
+											secondaryAction={
+												<IconButton aria-label="delete" sx={style().mi(-1)}>
+													<DeleteOutlineOutlinedIcon />
+												</IconButton>
+											}>
+											<ListItemIcon>
+												{transaction.value > 0 && <TaskAltOutlinedIcon />}
+												{transaction.value < 0 && <SellOutlinedIcon />}
+											</ListItemIcon>
+											<ListItemText
+												sx={style().clSec}
+												secondaryTypographyProps={style().clPrim}
+												primary={transaction.item.name}
+												secondary={new Date(transaction.date).toLocaleString()}
+											/>
+											<Typography
+												sx={
+													transaction.value > 0
+														? style().cl('darkgreen')
+														: style().cl('red')
+												}
+												variant="subtitle1">
+												{transaction.value}
+											</Typography>
+										</ListItem>
+									);
+								}
+							)}
 						</List>
 					</CardContent>
 				</Card>

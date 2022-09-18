@@ -88,6 +88,110 @@
     ],
     "quests": [
         {
+            "id": 13,
+            "name": "Fazer piri piri",
+            "description": "",
+            "prize": 5,
+            "done": false,
+            "repeatable": false
+        },
+        {
+            "id": 12,
+            "name": "This quest was created by my phone",
+            "description": "Yeahh A bug, two people cannot work with this at the same tine",
+            "prize": 1,
+            "done": false,
+            "repeatable": false
+        },
+        {
+            "id": 11,
+            "name": "Update to the server to check it on the phone",
+            "description": "Easy peasy lemon sequizzy",
+            "prize": 2,
+            "done": false,
+            "repeatable": false
+        },
+        {
+            "id": 10,
+            "name": "Add priority to the quests",
+            "description": "Maybe something in chips like (habbit, maybe, priority, urgent). Add default order and color of the quests to it.",
+            "prize": 5,
+            "done": false,
+            "repeatable": false
+        },
+        {
+            "id": 9,
+            "name": "Add ordering to the page",
+            "description": "Order by date, order by coins, asc and desc",
+            "prize": 5,
+            "done": false,
+            "repeatable": false
+        },
+        {
+            "id": 8,
+            "name": "This is a repeatable quest",
+            "description": "This is a repeatable description quest",
+            "prize": 1,
+            "done": false,
+            "repeatable": true
+        },
+        {
+            "id": 7,
+            "name": "Add due date for a quest",
+            "description": "This one is a little bit of a challenge. It may not be as simple as this",
+            "prize": 8,
+            "done": false,
+            "repeatable": false
+        },
+        {
+            "id": 6,
+            "name": "Remove txt from search box",
+            "description": "Not really sure if this is necessary, but who knows. Maybe on the phone is simply to much",
+            "prize": 2,
+            "done": false,
+            "repeatable": false
+        },
+        {
+            "id": 5,
+            "name": "Add chips for selecting the prize",
+            "description": "Instead of entering a number, just add some chips",
+            "prize": 3,
+            "done": 5,
+            "repeatable": false
+        },
+        {
+            "id": 4,
+            "name": "Handle repeatable quests",
+            "description": "Check if everything is working fine and make sure that ui shows it",
+            "prize": 3,
+            "done": false,
+            "repeatable": false
+        },
+        {
+            "id": 3,
+            "name": "Check the bug of same ID",
+            "description": "This happens maybe when I create a new quest",
+            "prize": 3,
+            "done": false,
+            "repeatable": false
+        },
+        {
+            "id": 2,
+            "name": "Add option to delete the quest",
+            "description": "Quests must be deletable",
+            "prize": 2,
+            "done": false,
+            "repeatable": false
+        },
+        {
+            "id": 1,
+            "name": "Do Quests",
+            "description": "Link the button to do a quest",
+            "prize": 2,
+            "done": 1,
+            "repeatable": false
+        },
+        {
             "id": 0,
             "name": "Create the main view page",
             "description": "Of Life-rpg",
@@ -96,34 +200,10 @@
             "repeatable": false
         },
         {
-            "id": 1,
-            "name": "Do Quests",
-            "description": "Link the button to do a quest",
-            "prize": "2",
-            "done": 1,
-            "repeatable": false
-        },
-        {
-            "id": 2,
-            "name": "Add option to delete the quest",
-            "description": "Quests must be deletable",
-            "prize": "2",
-            "done": false,
-            "repeatable": false
-        },
-        {
-            "id": 3,
-            "name": "Check the bug of same ID",
-            "description": "This happens maybe when I create a new quest",
-            "prize": "3",
-            "done": false,
-            "repeatable": false
-        },
-        {
-            "id": 4,
-            "name": "Handle repeatable quests",
-            "description": "Check if everything is working fine and make sure that ui shows it",
-            "prize": "3",
+            "id": 14,
+            "name": "Cortar a relva",
+            "description": "Corta relva",
+            "prize": 8,
             "done": false,
             "repeatable": false
         }

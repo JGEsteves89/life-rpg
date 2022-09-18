@@ -149,6 +149,11 @@ class inStyle {
 		newStyle.color = 'var(--cl-secondary)!important';
 		return newStyle;
 	}
+	get clWarn() {
+		const newStyle = this.cloneFromThis();
+		newStyle.color = 'var(--cl-warning)!important';
+		return newStyle;
+	}
 	get bgPrim() {
 		const newStyle = this.cloneFromThis();
 		newStyle.backgroundColor = 'var(--bg-primary)!important';
@@ -177,6 +182,11 @@ class inStyle {
 	bradius(radius) {
 		const newStyle = this.cloneFromThis();
 		newStyle.borderRadius = '' + radius;
+		return newStyle;
+	}
+	get pcursor() {
+		const newStyle = this.cloneFromThis();
+		newStyle.cursor = 'pointer';
 		return newStyle;
 	}
 }

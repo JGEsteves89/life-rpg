@@ -19,7 +19,6 @@ export default class DatabasableList extends Clonable {
 
 	add(item) {
 		item.id = this.generateId();
-		console.log('New ID:', item.id, this.items);
 		this.items.push(item);
 	}
 

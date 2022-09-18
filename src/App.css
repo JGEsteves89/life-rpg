@@ -4,6 +4,7 @@
 	--cl-secondary: #979eae;
 	--cl-primary: #ffffff;
 	--cl-selection: #4c84ff;
+	--cl-warning: #ff4c4c;
 }
 .bg-primary {
 	background-color: var(--bg-primary);
@@ -51,4 +52,27 @@ input {
 .MuiFormControl-root,
 .MuiFormLabel-root {
 	color: var(--cl-primary) !important;
+}
+/* .quest-enter {
+	opacity: 0;
+}
+.quest-enter-active {
+	opacity: 1;
+	transition: opacity 2000ms ease-in;
+} */
+.quest-exit {
+	opacity: 1;
+}
+.quest-exit-active {
+	opacity: 0;
+	transition: opacity 500ms ease-in;
+}
+ul {
+	margin: 0.1rem;
+	margin-right: 1rem;
+	padding: 0;
+}
+.MuiListItem-root {
+	margin: 0;
+	padding: 0;
 }

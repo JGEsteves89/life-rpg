@@ -19,6 +19,8 @@ export default class QuestDialog extends React.Component {
 		this.state = {
 			quest: props.quest,
 			onQuestChanged: props.onQuestChanged,
+			onQuestDeleted: props.onQuestDeleted,
+			buttonText: props.quest.id !== -1 ? 'Save' : 'Add',
 		};
 	}
 	onFormChange(e, attribute) {
@@ -83,11 +85,18 @@ export default class QuestDialog extends React.Component {
 					label="Repeatable"
 				/>
 				<DialogActions>
+					{this.state.quest.id !== -1 && (
+						<Button
+							sx={style().clWarn}
+							onClick={() => this.state.onQuestDeleted(this.state.quest.id)}>
+							Delete
+						</Button>
+					)}
 					<Button onClick={() => this.state.onQuestChanged(null)}>
 						Cancel
 					</Button>
 					<Button onClick={() => this.state.onQuestChanged(this.state.quest)}>
-						Subscribe
+						{this.state.buttonText}
 					</Button>
 				</DialogActions>
 			</Box>
