@@ -22,6 +22,13 @@ class NavBar extends React.Component {
 					QUESTS
 				</NavLink>
 				<NavLink
+					to="/habitsBoard"
+					className={(navData) =>
+						'nav-link' + (!navData.isActive ? ' unselected' : '')
+					}>
+					HABITS
+				</NavLink>
+				<NavLink
 					to="/store"
 					className={(navData) =>
 						'nav-link' + (!navData.isActive ? ' unselected' : '')

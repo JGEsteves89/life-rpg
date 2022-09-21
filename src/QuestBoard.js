@@ -1,15 +1,7 @@
 import React from 'react';
-import {
-	ListItem,
-	IconButton,
-	ListItemText,
-	Typography,
-	Chip,
-} from '@mui/material';
+import { ListItem, IconButton, ListItemText, Typography } from '@mui/material';
 import TaskAltOutlinedIcon from '@mui/icons-material/TaskAltOutlined';
 import LoopIcon from '@mui/icons-material/Loop';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import './App.css';
 import style from './style.js';
@@ -31,12 +23,6 @@ export default class QuestBoard extends React.Component {
 			],
 			filterSettings: [
 				{ name: 'Not done', attribute: 'done', active: true, showIf: false },
-				{
-					name: 'Repeatable',
-					attribute: 'repeatable',
-					active: false,
-					showIf: true,
-				},
 			],
 		};
 
@@ -52,35 +38,7 @@ export default class QuestBoard extends React.Component {
 			filterSettings: this.state.filterSettings,
 		});
 	};
-	sortChip(label, attribute) {
-		const currSettings = this.state.filterSettings;
-		const callback = () => {
-			if (currSettings.attribute === attribute) {
-				currSettings.des = !currSettings.des;
-			} else {
-				currSettings.attribute = attribute;
-				currSettings.des = true;
-			}
-			this.setState({ filterSettings: currSettings });
-		};
 
-		return (
-			<Chip
-				onClick={callback}
-				icon={
-					currSettings.attribute !== attribute ? (
-						<div></div>
-					) : currSettings.des ? (
-						<KeyboardArrowDownIcon />
-					) : (
-						<KeyboardArrowUpIcon />
-					)
-				}
-				label={label}
-				variant={currSettings.attribute === attribute ? 'outlined' : ''}
-			/>
-		);
-	}
 	questChanged = (quest) => {
 		if (quest) {
 			if (quest.id === -1) {
@@ -127,22 +85,10 @@ export default class QuestBoard extends React.Component {
 			500
 		);
 	};
-	filterItems(quests, searchPattern) {
-		if (searchPattern.length < 4) {
-			return quests;
-		}
-
-		return quests.filter(
-			(q) =>
-				q.name.toLowerCase().includes(this.state.search) ||
-				q.description.toLowerCase().includes(this.state.search)
-		);
-	}
 	render() {
 		return (
 			<ListItems
 				items={this.state.quests}
-				filterItemsCallback={this.filterItems}
 				appUpdate={this.state.appUpdate}
 				itemComponent={MyItem}
 				actions={[this.doQuest]}

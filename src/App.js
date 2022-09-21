@@ -5,15 +5,13 @@ import {
 	Routes,
 	Navigate,
 } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Avatar from '@mui/material/Avatar';
+import { AppBar, Snackbar, Box, Toolbar, Avatar } from '@mui/material';
 
 import './App.css';
 import Api from './Api.js';
 import Player from './Player.js';
 import QuestBoard from './QuestBoard.js';
+import Store from './Store.js';
 import NavBar from './NavBar.js';
 
 export default class App extends React.Component {
@@ -21,9 +19,21 @@ export default class App extends React.Component {
 		super(props);
 		this.state = {
 			api: null,
+			toastOpen: false,
+			toastMessage: '',
 		};
 	}
+	toastOpen = (message) => {
+		this.setState({ toastOpen: true, toastMessage: message });
+	};
 
+	toastClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+
+		this.setState({ toastOpen: false });
+	};
 	componentDidMount() {
 		Api.get().then((api) => {
 			this.setState({ api: api });
@@ -32,9 +42,9 @@ export default class App extends React.Component {
 
 	handleUpdate = () => {
 		this.setState({ api: this.state.api });
-		// this.state.api.save().then(() => {
-		// 	console.log('Data saved successfully');
-		// });
+		this.state.api.save().then(() => {
+			console.log('Data saved successfully');
+		});
 		console.log('Data updated');
 	};
 
@@ -47,6 +57,9 @@ export default class App extends React.Component {
 			return;
 		}
 		const player = this.state.api.getPlayer();
+		const quests = this.state.api.getQuests().filter((q) => !q.repeatable);
+		const habits = this.state.api.getQuests().filter((q) => q.repeatable);
+		const items = this.state.api.getItems();
 		return (
 			<Router>
 				<Box sx={{ flexGrow: 1 }}>
@@ -85,12 +98,36 @@ export default class App extends React.Component {
 								<QuestBoard
 									api={this.state.api}
 									appUpdate={this.handleUpdate}
-									quests={this.state.api.getQuests()}
-									key={this.state.api._questBoard.items}
+									quests={quests}
+									key={quests}
+									alert={this.toastOpen}
 								/>
 							}
 						/>
-						<Route path="/store" element={<>Hello Darkness my old friend</>} />
+						<Route
+							path="/habitsBoard"
+							element={
+								<QuestBoard
+									api={this.state.api}
+									appUpdate={this.handleUpdate}
+									quests={habits}
+									key={habits}
+									alert={this.toastOpen}
+								/>
+							}
+						/>
+						<Route
+							path="/store"
+							element={
+								<Store
+									api={this.state.api}
+									appUpdate={this.handleUpdate}
+									items={items}
+									key={items}
+									alert={this.toastOpen}
+								/>
+							}
+						/>
 						<Route
 							path="/player"
 							element={
@@ -103,6 +140,12 @@ export default class App extends React.Component {
 						<Route path="*" element={<Navigate to="/player" replace />} />
 					</Routes>
 				</Box>
+				<Snackbar
+					open={this.state.toastOpen}
+					autoHideDuration={1000}
+					onClose={this.toastClose}
+					message={this.state.toastMessage}
+				/>
 			</Router>
 		);
 	}
