@@ -23,11 +23,8 @@ export default class QuestBoard extends React.Component {
 		super(props);
 		this.state = {
 			quests: props.quests,
-			search: '',
 			appUpdate: props.appUpdate,
 			api: props.api,
-			showDone: false,
-			showOnlyRepeatable: false,
 			sortSettings: [
 				{ name: 'Date', attribute: 'id', des: true, active: true },
 				{ name: 'Prize', attribute: 'prize', des: true, active: false },
@@ -142,22 +139,6 @@ export default class QuestBoard extends React.Component {
 		);
 	}
 	render() {
-		// if (!this.state.quests || this.state.quests.length === 0) {
-		// 	console.warn('Attention, quests with nothing in it');
-		// }
-		// let filteredQUests
-		// const filter = this.state.filterSettings;
-		// filteredQuests = filteredQuests.sort((a, b) => {
-		// 	const neg = filter.des ? -1 : 1;
-		// 	const result = (a[filter.attribute] - b[filter.attribute]) * neg;
-		// 	return result;
-		// });
-		// if (!this.state.showDone) {
-		// 	filteredQuests = filteredQuests.filter((q) => !q.done);
-		// }
-		// if (this.state.showOnlyRepeatable) {
-		// 	filteredQuests = filteredQuests.filter((q) => q.repeatable);
-		// }
 		return (
 			<ListItems
 				items={this.state.quests}

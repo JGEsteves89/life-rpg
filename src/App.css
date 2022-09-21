@@ -67,7 +67,7 @@ input {
 	opacity: 0;
 	transition: opacity 1000ms;
 } */
-ul {
+.item {
 	margin: 0.1rem;
 	margin-right: 1rem;
 	padding: 0;

@@ -1,9 +1,15 @@
 import React from 'react';
-import { Box, Card, Divider, List, IconButton, Dialog } from '@mui/material';
+import {
+	Box,
+	Card,
+	Divider,
+	List,
+	IconButton,
+	Dialog,
+	Slide,
+} from '@mui/material';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-
+import { TransitionGroup } from 'react-transition-group';
 import './App.css';
 import style from './style.js';
 import SearchBar from './SearchBar.js';
@@ -56,7 +62,7 @@ export default class ListItems extends React.Component {
 			search: '',
 			showDialog: false,
 			editItem: null,
-			showDone: false,
+			show: true,
 			items: props.items,
 			newItem: props.newItem,
 			appUpdate: props.appUpdate,
@@ -85,6 +91,7 @@ export default class ListItems extends React.Component {
 	render() {
 		if (!this.state.items || this.state.items.length === 0) {
 			console.warn('Attention, items with nothing in it');
+			return <></>;
 		}
 		const filteredItems = filterAndSortItems(
 			this.state.items,
@@ -122,23 +129,26 @@ export default class ListItems extends React.Component {
 							return comp;
 						})}
 						<List sx={style().bgPrim}>
-							{/* <TransitionGroup component="ul"> */}
-							{filteredItems.map((item) => {
-								return (
-									// <CSSTransition
-									// 	key={item.id}
-									// 	timeout={1000}
-									// 	classNames="item">
-									<Item
-										key={item.id}
-										item={item}
-										openDialogCallback={this.handleClickOpen}
-										actions={this.state.itemActions}
-									/>
-									// </CSSTransition>
-								);
-							})}
-							{/* </TransitionGroup> */}
+							<TransitionGroup>
+								{filteredItems.map((item) => {
+									return (
+										<Slide
+											direction="left"
+											in={filteredItems.includes(item)}
+											key={item.id}
+											timeout={500}>
+											<div className="item">
+												<Item
+													className="item"
+													item={item}
+													openDialogCallback={this.handleClickOpen}
+													actions={this.state.itemActions}
+												/>
+											</div>
+										</Slide>
+									);
+								})}
+							</TransitionGroup>
 						</List>
 					</Box>
 				</Card>
