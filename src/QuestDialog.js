@@ -17,10 +17,11 @@ export default class QuestDialog extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			quest: props.quest,
-			onQuestChanged: props.onQuestChanged,
-			onQuestDeleted: props.onQuestDeleted,
-			buttonText: props.quest.id !== -1 ? 'Save' : 'Add',
+			quest: props.item,
+			onQuestChanged: props.onItemChanged,
+			onQuestDeleted: props.onItemDeleted,
+			handleClose: props.handleClose,
+			buttonText: props.item.id !== -1 ? 'Save' : 'Add',
 		};
 	}
 	onFormChange(e, attribute) {
@@ -88,14 +89,25 @@ export default class QuestDialog extends React.Component {
 					{this.state.quest.id !== -1 && (
 						<Button
 							sx={style().clWarn}
-							onClick={() => this.state.onQuestDeleted(this.state.quest.id)}>
+							onClick={() => {
+								this.state.handleClose();
+								this.state.onQuestDeleted(this.state.quest.id);
+							}}>
 							Delete
 						</Button>
 					)}
-					<Button onClick={() => this.state.onQuestChanged(null)}>
+					<Button
+						onClick={() => {
+							this.state.handleClose();
+							this.state.onQuestChanged(null);
+						}}>
 						Cancel
 					</Button>
-					<Button onClick={() => this.state.onQuestChanged(this.state.quest)}>
+					<Button
+						onClick={() => {
+							this.state.handleClose();
+							this.state.onQuestChanged(this.state.quest);
+						}}>
 						{this.state.buttonText}
 					</Button>
 				</DialogActions>

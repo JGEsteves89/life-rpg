@@ -1,77 +1,22 @@
 import React from 'react';
 import {
-	Box,
-	Card,
-	InputBase,
-	Typography,
-	Divider,
-	List,
 	ListItem,
-	ListItemText,
 	IconButton,
-	Dialog,
+	ListItemText,
+	Typography,
 	Chip,
-	Stack,
 } from '@mui/material';
-import { styled, alpha } from '@mui/material/styles';
-import SearchIcon from '@mui/icons-material/Search';
 import TaskAltOutlinedIcon from '@mui/icons-material/TaskAltOutlined';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import LoopIcon from '@mui/icons-material/Loop';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import LoopIcon from '@mui/icons-material/Loop';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import './App.css';
 import style from './style.js';
 import QuestDialog from './QuestDialog.js';
 import Quest from './API/Quest.js';
-
-const mainBoxStyle = style().flex.frow.jcenter.m1.mi(0.1);
-const cardHeaderStyle = style().flex.jbetween.acenter;
-
-const Search = styled('div')(({ theme }) => ({
-	position: 'relative',
-	borderRadius: theme.shape.borderRadius,
-	backgroundColor: alpha(theme.palette.common.white, 0.15),
-	'&:hover': {
-		backgroundColor: alpha(theme.palette.common.white, 0.25),
-	},
-	marginLeft: 0,
-	width: '100%',
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-	padding: theme.spacing(0, 2),
-	height: '100%',
-	position: 'absolute',
-	pointerEvents: 'none',
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-	color: 'inherit',
-	'& .MuiInputBase-input': {
-		padding: theme.spacing(1, 1, 1, 0),
-		// vertical padding + font size from searchIcon
-		paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-		transition: theme.transitions.create('width'),
-		width: '100%',
-		[theme.breakpoints.up('sm')]: {
-			width: '12ch',
-			'&:focus': {
-				width: '20ch',
-			},
-		},
-	},
-}));
-const Attributes = {
-	id: 'id',
-	done: 'done',
-	prize: 'prize',
-};
+import ListItems from './ListItems.js';
+import ChipStack from './Chips.js';
 
 export default class QuestBoard extends React.Component {
 	constructor(props) {
@@ -79,19 +24,35 @@ export default class QuestBoard extends React.Component {
 		this.state = {
 			quests: props.quests,
 			search: '',
-			showDialog: false,
-			editQuest: null,
 			appUpdate: props.appUpdate,
 			api: props.api,
-			filterSettings: { attribute: Attributes.id, des: true },
 			showDone: false,
 			showOnlyRepeatable: false,
+			sortSettings: [
+				{ name: 'Date', attribute: 'id', des: true, active: true },
+				{ name: 'Prize', attribute: 'prize', des: true, active: false },
+			],
+			filterSettings: [
+				{ name: 'Not done', attribute: 'done', active: true, showIf: false },
+				{
+					name: 'Repeatable',
+					attribute: 'repeatable',
+					active: false,
+					showIf: true,
+				},
+			],
 		};
+
+		this.chipStack = new ChipStack(
+			this.state.sortSettings,
+			this.state.filterSettings,
+			this.onfilterOrSortChanged
+		);
 	}
-	handleClickOpen = (quest) => {
+	onfilterOrSortChanged = () => {
 		this.setState({
-			editQuest: quest,
-			showDialog: true,
+			sortSettings: this.state.sortSettings,
+			filterSettings: this.state.filterSettings,
 		});
 	};
 	sortChip(label, attribute) {
@@ -124,9 +85,6 @@ export default class QuestBoard extends React.Component {
 		);
 	}
 	questChanged = (quest) => {
-		this.setState({
-			showDialog: false,
-		});
 		if (quest) {
 			if (quest.id === -1) {
 				this.state.api.addQuest(
@@ -150,13 +108,10 @@ export default class QuestBoard extends React.Component {
 		}
 	};
 	deleteQuest = (questId) => {
-		this.setState({
-			showDialog: false,
-		});
 		this.state.api.deleteQuest(questId);
 		this.state.appUpdate();
 	};
-	doQuest(questId) {
+	doQuest = (questId) => {
 		const quest = this.state.quests.find((q) => q.id === questId);
 		quest.done = true;
 
@@ -174,137 +129,90 @@ export default class QuestBoard extends React.Component {
 			}.bind(this),
 			500
 		);
+	};
+	filterItems(quests, searchPattern) {
+		if (searchPattern.length < 4) {
+			return quests;
+		}
+
+		return quests.filter(
+			(q) =>
+				q.name.toLowerCase().includes(this.state.search) ||
+				q.description.toLowerCase().includes(this.state.search)
+		);
 	}
 	render() {
-		if (!this.state.quests || this.state.quests.length === 0) {
-			console.warn('Attention, quests with nothing in it');
-		}
-		let filteredQuests =
-			this.state.search !== ''
-				? this.state.quests.filter(
-						(q) =>
-							q.name.toLowerCase().includes(this.state.search) ||
-							q.description.toLowerCase().includes(this.state.search)
-				  )
-				: this.state.quests;
-
-		const filter = this.state.filterSettings;
-		filteredQuests = filteredQuests.sort((a, b) => {
-			const neg = filter.des ? -1 : 1;
-			const result = (a[filter.attribute] - b[filter.attribute]) * neg;
-			return result;
-		});
-		if (!this.state.showDone) {
-			filteredQuests = filteredQuests.filter((q) => !q.done);
-		}
-		if (this.state.showOnlyRepeatable) {
-			filteredQuests = filteredQuests.filter((q) => q.repeatable);
-		}
+		// if (!this.state.quests || this.state.quests.length === 0) {
+		// 	console.warn('Attention, quests with nothing in it');
+		// }
+		// let filteredQUests
+		// const filter = this.state.filterSettings;
+		// filteredQuests = filteredQuests.sort((a, b) => {
+		// 	const neg = filter.des ? -1 : 1;
+		// 	const result = (a[filter.attribute] - b[filter.attribute]) * neg;
+		// 	return result;
+		// });
+		// if (!this.state.showDone) {
+		// 	filteredQuests = filteredQuests.filter((q) => !q.done);
+		// }
+		// if (this.state.showOnlyRepeatable) {
+		// 	filteredQuests = filteredQuests.filter((q) => q.repeatable);
+		// }
 		return (
-			<Box sx={mainBoxStyle}>
-				<Card raised={true} sx={style().w('90%').bgPrim}>
-					<Box sx={style().m(1).mi(0.5)}>
-						<Box sx={cardHeaderStyle}>
-							<Search
-								onChange={(event) => {
-									const searchPattern = event.target.value.toLowerCase();
-									if (searchPattern.length < 3) {
-										this.setState({ search: '' });
-									} else {
-										this.setState({ search: searchPattern });
-									}
-								}}>
-								<SearchIconWrapper>
-									<SearchIcon />
-								</SearchIconWrapper>
-								<StyledInputBase
-									placeholder="Search…"
-									inputProps={{ 'aria-label': 'search' }}
-								/>
-							</Search>
-							<IconButton
-								aria-label="add"
-								sx={style().mi(0.5)}
-								onClick={() => this.handleClickOpen(new Quest('', '', 0))}>
-								<AddCircleOutlineOutlinedIcon />
-							</IconButton>
-						</Box>
-						<Divider sx={style().m1} />
-						<Stack direction="row" spacing={1}>
-							{this.sortChip('Date', Attributes.id)}
-							{this.sortChip('Prize', Attributes.prize)}
-							<Chip
-								onClick={() =>
-									this.setState({ showDone: !this.state.showDone })
-								}
-								label="Done"
-								variant={this.state.showDone ? 'outlined' : ''}
-							/>
-							<Chip
-								onClick={() =>
-									this.setState({
-										showOnlyRepeatable: !this.state.showOnlyRepeatable,
-									})
-								}
-								label="Repeatable"
-								variant={this.state.showOnlyRepeatable ? 'outlined' : ''}
-							/>
-						</Stack>
-						<List sx={style().bgPrim}>
-							<TransitionGroup component="ul">
-								{filteredQuests.map((quest) => {
-									return (
-										<CSSTransition
-											key={quest.id}
-											timeout={1000}
-											classNames="quest">
-											<ListItem
-												disabled={quest.done === true}
-												className="disabled quest"
-												sx={style().shadow1.bgSec.m(0.5)}
-												key={quest.id}
-												secondaryAction={
-													<IconButton
-														aria-label="delete"
-														sx={style().mi(-1)}
-														onClick={() => this.doQuest(quest.id)}>
-														<TaskAltOutlinedIcon />
-													</IconButton>
-												}>
-												<ListItemText
-													onClick={() => this.handleClickOpen(quest)}
-													sx={style().clSec.pcursor}
-													secondaryTypographyProps={style().clPrim}
-													primary={quest.name}
-													secondary={quest.description}
-												/>
-												{quest.repeatable && <LoopIcon sx={style().mi(0.5)} />}
-												<Typography
-													sx={
-														quest.prize > 0
-															? style().cl('darkgreen')
-															: style().cl('red')
-													}
-													variant="subtitle1">
-													{quest.prize}
-												</Typography>
-											</ListItem>
-										</CSSTransition>
-									);
-								})}
-							</TransitionGroup>
-						</List>
-					</Box>
-				</Card>
-				<Dialog open={this.state.showDialog} fullWidth={true}>
-					<QuestDialog
-						onQuestChanged={this.questChanged}
-						onQuestDeleted={this.deleteQuest}
-						quest={this.state.editQuest}
-						handleClose={this.handleClose}
-					/>
-				</Dialog>
-			</Box>
+			<ListItems
+				items={this.state.quests}
+				filterItemsCallback={this.filterItems}
+				appUpdate={this.state.appUpdate}
+				itemComponent={MyItem}
+				actions={[this.doQuest]}
+				itemDialogComponent={QuestDialog}
+				onItemChangeCallback={this.questChanged}
+				onItemDeletedCallback={this.deleteQuest}
+				chipStack={this.chipStack}
+				newItem={() => new Quest('', '', 0)}
+			/>
+		);
+	}
+}
+class MyItem extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			quest: props.item,
+			actions: props.actions,
+			openDialog: props.openDialogCallback,
+		};
+	}
+	render() {
+		const quest = this.state.quest;
+		return (
+			<ListItem
+				disabled={quest.done === true}
+				className="disabled quest"
+				sx={style().shadow1.bgSec.m(0.5)}
+				key={quest.id}
+				secondaryAction={
+					<IconButton
+						aria-label="Do quest"
+						sx={style().mi(-1)}
+						onClick={() => this.state.actions[0](quest.id)}>
+						<TaskAltOutlinedIcon />
+					</IconButton>
+				}>
+				<ListItemText
+					onClick={() => this.state.openDialog(quest)}
+					sx={style().clSec.pcursor}
+					secondaryTypographyProps={style().clPrim}
+					primary={quest.name}
+					secondary={quest.description}
+				/>
+				{quest.repeatable && <LoopIcon sx={style().mi(0.5)} />}
+				<Typography
+					sx={quest.prize > 0 ? style().cl('darkgreen') : style().cl('red')}
+					variant="subtitle1">
+					{quest.prize}
+				</Typography>
+			</ListItem>
 		);
 	}
 }

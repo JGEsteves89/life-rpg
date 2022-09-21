@@ -59,14 +59,14 @@ input {
 .quest-enter-active {
 	opacity: 1;
 	transition: opacity 2000ms ease-in;
-} */
+}
 .quest-exit {
 	opacity: 1;
 }
 .quest-exit-active {
 	opacity: 0;
-	transition: opacity 500ms ease-in;
-}
+	transition: opacity 1000ms;
+} */
 ul {
 	margin: 0.1rem;
 	margin-right: 1rem;
